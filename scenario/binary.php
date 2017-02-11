@@ -1,19 +1,19 @@
 <?php
 
 $search = 9999;
-$start_index = 0;
-$end_index = count($data) - 1;
+$startIndex = 0;
+$endIndex = count($users) - 1;
 
-while ($end_index > $start_index) {
-    $median_index = ($start_index + $end_index);
+while ($endIndex > $startIndex) {
+    $medianIndex = ($startIndex + $endIndex);
 
-    if ($search > $data[$median_index]->id) {
-        $start_index = $median_index + 1;
-    } elseif ($search < $data[$median_index]->id) {
-        $end_index = $median_index - 1;
+    if ($search > $users[$medianIndex]->id) {
+        $startIndex = $medianIndex + 1;
+    } elseif ($search < $users[$medianIndex]->id) {
+        $endIndex = $medianIndex - 1;
     } else {
-        return $data[$median_index];
+        return $users[$medianIndex];
     }
 }
 
-return (object)[];
+return new \App\User;

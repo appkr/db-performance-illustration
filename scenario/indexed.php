@@ -1,9 +1,9 @@
 <?php
 
-foreach ($index['foo'] as $item) {
-    if (strpos($item->name, '_9999') !== false) {
-        return $item;
+foreach ($userIndex[4] as $user) {
+    if (strpos($user->name, '_9999') !== false) {
+        return $user;
     }
 }
 
-return (object)[];
+return new \App\User;

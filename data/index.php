@@ -1,9 +1,9 @@
 <?php
 
-$index = [];
+$userIndex = [];
 
-foreach ($data as $item) {
-    $index[$item->team][] = $item;
+foreach ($users as $user) {
+    $userIndex[$user->team_id][] = $user;
 }
 
-return $index;
+return $userIndex;

@@ -1,23 +1,20 @@
 <?php
 
-// 이 간단한 실험에서는 foreach가 array_map보다 2배 빠릅니다.
-//$joined = array_map(function ($item) use ($teams) {
-//    $item->joined_team_name = $teams[$item->team_id];
-//    return $item;
-//}, $data);
-
 $joined = [];
 
-foreach ($data as $item) {
-    $item->joined_team_name = $teams[$item->team_id];
-    $joined[] = $item;
+foreach ($users as $user) {
+    $team = $teams[$user->team_id - 1];
+    $user->team_name = $team->name;
+    $user->team_since = $team->since;
+    $user->team_subscription = $team->subscription;
+    $joined[] = $user;
 }
 
-foreach ($joined as $item) {
-    if (strpos($item->name, '_9999') !== false) {
-        return $item;
+foreach ($joined as $user) {
+    if (strpos($user->name, '_9999') !== false) {
+        return $user;
     }
 }
 
-return (object)[];
+return new \App\User;
 

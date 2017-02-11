@@ -9,13 +9,13 @@ require(__DIR__ . '/vendor/autoload.php');
 // 허용 메모리 키우고, 테스트 데이터 생성
 ini_set('memory_limit', '512M');
 $teams = require(__DIR__ . '/data/teams.php');
-$data = require(__DIR__ . '/data/data.php');
-$index = require(__DIR__ . '/data/index.php');
+$users = require(__DIR__ . '/data/users.php');
+$userIndex = require(__DIR__ . '/data/index.php');
 
 // 타이머 시작
 define('START', microtime(true));
 
-// 예외 렌더러 등록
+// 예외 핸들러 등록
 $whoops = new Run;
 $whoops->pushHandler(new JsonResponseHandler());
 $whoops->register();
