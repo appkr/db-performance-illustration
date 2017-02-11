@@ -6,10 +6,11 @@ use Whoops\Run;
 // 오토로드
 require(__DIR__ . '/vendor/autoload.php');
 
-// 프로세스당 메모리 제한 완화 및 테스트 데이터 생성
+// 허용 메모리 키우고, 테스트 데이터 생성
 ini_set('memory_limit', '512M');
-$data = require(__DIR__ . '/data.php');
-$index = require(__DIR__ . '/indexed-data.php');
+$teams = require(__DIR__ . '/data/teams.php');
+$data = require(__DIR__ . '/data/data.php');
+$index = require(__DIR__ . '/data/index.php');
 
 // 타이머 시작
 define('START', microtime(true));
@@ -27,6 +28,7 @@ $allowed = [
     'fullscan',
     'binary',
     'indexed',
+    'join',
 ];
 
 // 유효성 검사
@@ -41,9 +43,13 @@ if (in_array($scenario, $allowed, true) === false) {
 }
 
 // 테스트 수행
-$found = require(__DIR__ . "/{$scenario}.php");
+$found = require(__DIR__ . "/scenario/{$scenario}.php");
+
+// 결과 계산
 $result = [
-    'elapsed(milli second)' => (microtime(true) - START) * 1000,
+    '처리시간(ms)' => (microtime(true) - START) * 1000,
+    '메모리(MB)' =>  memory_get_usage() / 1000000,
+    'CPU(%)' => sys_getloadavg()[0],
     'found' => $found,
 ];
 
