@@ -1,20 +1,20 @@
 <?php
 
-$joined = [];
+$found = null;
 
 foreach ($users as $user) {
-    $team = $teams[$user->team_id - 1];
-    $user->team_name = $team->name;
-    $user->team_since = $team->since;
-    $user->team_subscription = $team->subscription;
-    $joined[] = $user;
-}
-
-foreach ($joined as $user) {
     if (strpos($user->name, '_9999') !== false) {
-        return $user;
+        $found = $user;
     }
 }
 
-return new \App\User;
+if ($found) {
+    $team = $teams[$found->team_id - 1];
+    $found->team_name = $team->name;
+    $found->team_since = $team->since;
+    $found->team_subscription = $team->subscription;
 
+    return $found;
+}
+
+return new \App\User;
